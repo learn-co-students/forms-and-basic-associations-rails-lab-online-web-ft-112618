@@ -18,4 +18,14 @@ class Song < ActiveRecord::Base
   def genre_name
     self.genre ? self.genre.name : nil
   end
+
+  def note_contents=(notes_array)
+    notes_array.each do |note_string|
+      self.notes.build(content: note_string) unless note_string.strip == ""
+    end
+  end
+
+  def note_contents
+    self.notes.map {|note| note.content}
+  end
 end
